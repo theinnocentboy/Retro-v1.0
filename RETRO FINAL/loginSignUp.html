@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .form-container {
+      min-height: 100vh;
+      background: white;
+    }
+  </style>
+</head>
+<body class="form-container flex items-center justify-center">
+  <div class="flex flex-col bg-white rounded-3xl max-w-md w-full mx-4 shadow-2xl">
+    <!-- Toggle Buttons -->
+    <div class="px-6 pt-8">
+      <div class="flex bg-gray-100 rounded-full p-1">
+        <button id="loginBtn" class="flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all duration-200 bg-black text-white">
+          Login
+        </button>
+        <button id="signupBtn" class="flex-1 py-2 px-4 rounded-full text-sm font-medium transition-all duration-200 text-gray-600 hover:text-black">
+          Sign Up
+        </button>
+      </div>
+    </div>
+
+    <!-- Login Form -->
+    <div id="loginForm" class="px-6 py-8 sm:p-10 sm:pb-6">
+      <div class="grid items-center justify-center w-full grid-cols-1 text-left">
+        <div>
+          <h2 class="text-lg font-medium tracking-tighter text-gray-600 lg:text-3xl">
+            Welcome Back
+          </h2>
+          <p class="mt-2 text-sm text-gray-500">Sign in to your account</p>
+        </div>
+        
+        <div class="mt-6 space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+            <input type="email" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm" placeholder="Enter your email">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <input type="password" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm" placeholder="Enter your password">
+          </div>
+          <div class="flex items-center justify-between">
+            <label class="flex items-center">
+              <input type="checkbox" class="w-4 h-4 text-black border-gray-300 rounded focus:ring-black">
+              <span class="ml-2 text-sm text-gray-600">Remember me</span>
+            </label>
+            <a href="#" class="text-sm text-black hover:underline">Forgot password?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div id="signupForm" class="px-6 py-8 sm:p-10 sm:pb-6 hidden">
+      <div class="grid items-center justify-center w-full grid-cols-1 text-left">
+        <div>
+          <h2 class="text-lg font-medium tracking-tighter text-gray-600 lg:text-3xl">
+            Create Account
+          </h2>
+          <p class="mt-2 text-sm text-gray-500">Join us today</p>
+        </div>
+        
+        <div class="mt-6 space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+              <input type="text" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm" placeholder="First name">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+              <input type="text" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm" placeholder="Last name">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+            <input type="email" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm" placeholder="Enter your email">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <input type="password" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm" placeholder="Create password">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+            <input type="password" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm" placeholder="Confirm password">
+          </div>
+          <div class="flex items-center">
+            <input type="checkbox" class="w-4 h-4 text-black border-gray-300 rounded focus:ring-black">
+            <span class="ml-2 text-sm text-gray-600">I agree to the <a href="#" class="text-black hover:underline">Terms and Conditions</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex px-6 pb-8 sm:px-8">
+      <button id="submitBtn" class="flex items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-black border-2 border-black rounded-full hover:bg-transparent hover:border-black hover:text-black focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black transition-all">
+        Sign In
+      </button>
+    </div>
+
+
+  </div>
+
+  <script>
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    loginBtn.addEventListener('click', () => {
+      loginBtn.classList.add('bg-black', 'text-white');
+      loginBtn.classList.remove('text-gray-600');
+      signupBtn.classList.remove('bg-black', 'text-white');
+      signupBtn.classList.add('text-gray-600');
+      
+      loginForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+      submitBtn.textContent = 'Sign In';
+    });
+
+    signupBtn.addEventListener('click', () => {
+      signupBtn.classList.add('bg-black', 'text-white');
+      signupBtn.classList.remove('text-gray-600');
+      loginBtn.classList.remove('bg-black', 'text-white');
+      loginBtn.classList.add('text-gray-600');
+      
+      signupForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+      submitBtn.textContent = 'Create Account';
+    });
+
+    // Form submission
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isLogin = !loginForm.classList.contains('hidden');
+      
+      if (isLogin) {
+        alert('Login functionality would be implemented here');
+      } else {
+        alert('Sign up functionality would be implemented here');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2000 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro Cards</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+
+
+   
+    <link
+      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+      rel="stylesheet"
+    />
+
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        /* Light theme colors */
+        --bg-primary: #fafafa;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #f5f5f5;
+        --text-primary: #1a1a1a;
+        --text-secondary: #666666;
+        --text-muted: #999999;
+        --accent-primary: #6366f1;
+        --accent-secondary: #8b5cf6;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --error: #ef4444;
+        --shadow: rgba(0, 0, 0, 0.1);
+        --shadow-lg: rgba(0, 0, 0, 0.15);
+        --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: #0f0f0f;
+        --bg-secondary: #1a1a1a;
+        --bg-tertiary: #2a2a2a;
+        --text-primary: #ffffff;
+        --text-secondary: #cccccc;
+        --text-muted: #888888;
+        --shadow: rgba(0, 0, 0, 0.3);
+        --shadow-lg: rgba(0, 0, 0, 0.4);
+        --glass-bg: rgba(0, 0, 0, 0.3);
+        --border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "IBM Plex Sans", sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        overflow-x: hidden;
+      }
+
+      .brand-font {
+        font-family: "Orbitron", monospace;
+      }
+
+      .accent-font {
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      /* Navigation */
+      .nav-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem 2rem;
+      }
+
+      .nav-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Orbitron", monospace;
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(
+          45deg,
+          var(--accent-primary),
+          var(--accent-secondary)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--accent-primary);
+        background: var(--glass-bg);
+        transform: translateY(-2px);
+      }
+
+      .theme-toggle {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        color: var(--accent-primary);
+        transform: rotate(180deg);
+      }
+
+      /* Main Content */
+
+      .section {
+        padding-left: 1rem;
+        /* padding-top: 80px; */ /* Moved padding to content-wrapper */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* min-height: 100vh; */ /* This conflicts with fullpage.js */
+      }
+
+      .content-wrapper {
+        width: 95vw; /* 95% of viewport width */
+        margin: 0 auto;
+        height: 100%;
+        padding-top: 20px; /* Reduced padding since navbar is removed */
+      }
+
+      .page-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        text-align: center;
+        background: linear-gradient(
+          45deg,
+          var(--accent-primary),
+          var(--accent-secondary)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .card {
+        background: var(--bg-secondary);
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px var(--shadow);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px var(--shadow-lg);
+      }
+
+      .btn {
+        background: linear-gradient(
+          45deg,
+          var(--accent-primary),
+          var(--accent-secondary)
+        );
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+      }
+
+      .btn-secondary {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+      }
+
+      .btn-secondary:hover {
+        box-shadow: 0 10px 25px var(--shadow);
+      }
+
+      /* Hide fullpage.js watermark */
+      div.fp-watermark {
+        display: none !important;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .nav-container {
+          padding: 1rem;
+        }
+
+        .section {
+          padding: 1rem;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+      }
+
+      /* Additional Animations and Polish */
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: -200px 0;
+        }
+        100% {
+          background-position: calc(200px + 100%) 0;
+        }
+      }
+
+      .animate-in {
+        animation: slideInUp 0.6s ease-out;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .pulse-hover:hover {
+        animation: pulse 0.6s ease-in-out;
+      }
+
+      .shimmer {
+        background: linear-gradient(
+          90deg,
+          var(--bg-secondary) 0%,
+          rgba(99, 102, 241, 0.1) 50%,
+          var(--bg-secondary) 100%
+        );
+        background-size: 200px 100%;
+        animation: shimmer 2s infinite;
+      }
+
+      .message:hover .pin-btn {
+        opacity: 1;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px var(--shadow-lg);
+      }
+
+      .btn:active {
+        transform: translateY(-1px);
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--accent-primary);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .nav-link.active::after,
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Glassmorphism effects */
+      .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Smooth scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg-tertiary);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--accent-primary);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-secondary);
+      }
+
+      /* Loading states */
+      .loading {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .loading::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(99, 102, 241, 0.1),
+          transparent
+        );
+        animation: shimmer 1.5s infinite;
+      }
+
+      /* Mobile responsive grid adjustments */
+      @media (max-width: 768px) {
+        .content-wrapper {
+          width: 98vw; /* Even wider on mobile */
+          padding: 10px 0;
+        }
+        
+        .cards-grid {
+          grid-template-columns: repeat(
+            auto-fill,
+            minmax(250px, 1fr)
+          ) !important;
+        }
+
+        .cards-header {
+          flex-direction: column !important;
+          gap: 1rem !important;
+          padding: 0 0.5rem;
+        }
+
+        .search-container input {
+          width: 100% !important;
+        }
+      }
+      
+      /* Additional responsiveness for large screens */
+      @media (min-width: 1600px) {
+        .content-wrapper {
+          width: 90vw;
+        }
+      }
+      
+      /* Card modal animation */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      .card-modal {
+        animation: fadeIn 0.3s ease-out;
+      }
+      
+      /* Button hover effects */
+      #save-card:hover, #save-edit:hover {
+        background-color: transparent;
+        color: black;
+      }
+      
+      #cancel-card:hover, #cancel-edit:hover {
+        background-color: black;
+        color: white;
+      }
+      
+      /* Input and select hover effects */
+      .search-container input:focus {
+        outline: none;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+      
+      select:focus {
+        outline: none;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      /* Flashcard hover effects */
+      .flashcard {
+        transition: all 0.3s ease !important;
+      }
+
+      .flashcard:hover {
+        transform: scale(1.05) !important;
+      }
+
+      .flashcard:hover .card-front {
+        border-radius: 24px !important;
+        box-shadow: inset 3px 3px 12px rgba(0, 0, 0, 0.15), inset -3px -3px 12px rgba(255, 255, 255, 0.7) !important;
+      }
+
+      .flashcard:hover .card-back {
+        border-radius: 24px !important;
+        box-shadow: inset 3px 3px 12px rgba(0, 0, 0, 0.15), inset -3px -3px 12px rgba(255, 255, 255, 0.9) !important;
+      }
+
+      .flashcard:active {
+        transform: scale(0.98) !important;
+      }
+
+      .flashcard:active {
+        transform: scale(0.98) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div class="main-container" style="display: flex; justify-content: center; width: 100%;">
+      <div class="content-wrapper">
+        <div id="cards-content">
+          <!-- Cards content will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+
+      // Initialize theme
+      function initializeTheme() {
+        document.body.setAttribute("data-theme", "light");
+      }
+
+      // Load content with animations
+      function loadContentWithAnimation(contentDiv, loadFunction) {
+        // Add loading state
+        contentDiv.classList.add("loading");
+        contentDiv.innerHTML =
+          '<div style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);"><i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-right: 1rem;"></i>Loading...</div>';
+
+        // Simulate loading delay for smooth UX
+        setTimeout(() => {
+          contentDiv.classList.remove("loading");
+          loadFunction(contentDiv);
+          
+          // Add fade-in animation
+          contentDiv.classList.add("fade-in");
+        }, 300);
+      }
+
+      // Sample data
+      const sampleNotes = [
+        {
+          id: 1,
+          title: "Quantum Physics Basics",
+          content: "Wave-particle duality is a fundamental principle...",
+          timestamp: "2025-09-18T10:00:00Z",
+        },
+        {
+          id: 2,
+          title: "JavaScript Closures",
+          content:
+            "A closure is the combination of a function and the lexical environment...",
+          timestamp: "2025-09-18T11:30:00Z",
+        },
+        {
+          id: 3,
+          title: "Machine Learning Overview",
+          content: "Machine learning is a subset of artificial intelligence...",
+          timestamp: "2025-09-18T14:15:00Z",
+        },
+      ];
+
+      const sampleCards = [];
+
+      const chatMemory = [
+        {
+          type: "user",
+          message: "Explain quantum entanglement",
+          timestamp: "10:30 AM",
+        },
+        {
+          type: "ai",
+          message:
+            "Quantum entanglement is a phenomenon where two particles become connected...",
+          timestamp: "10:31 AM",
+        },
+        {
+          type: "user",
+          message: "Can you help me with calculus derivatives?",
+          timestamp: "11:45 AM",
+        },
+        {
+          type: "ai",
+          message: "Of course! Derivatives represent the rate of change...",
+          timestamp: "11:46 AM",
+        },
+        {
+          type: "user",
+          message: "What are the key concepts in organic chemistry?",
+          timestamp: "2:20 PM",
+        },
+      ];
+
+      // Load Chat Content
+      function loadChatContent(container) {
+        container.innerHTML = `
+              <div class="chat-container" style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem; height: 100%;">
+                  <!-- Main Chat Area -->
+                  <div class="chat-main card" style="display: flex; flex-direction: column; position: relative; height: 100%;">
+                      <div class="chat-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                          <h2 class="accent-font" style="color: var(--accent-primary);">AI Assistant</h2>
+                          <div class="memory-indicator" style="display: flex; gap: 0.5rem;">
+                              <span style="font-size: 0.875rem; color: var(--text-muted);">Memory:</span>
+                              ${Array.from(
+                                { length: 5 },
+                                (_, i) =>
+                                  `<div class="memory-chip ${
+                                    i < 3 ? "active" : ""
+                                  }" style="width: 12px; height: 12px; border-radius: 50%; background: ${
+                                    i < 3
+                                      ? "var(--accent-primary)"
+                                      : "var(--bg-tertiary)"
+                                  }; transition: all 0.3s ease;"></div>`
+                              ).join("")}
+                          </div>
+                      </div>
+
+                      <div class="chat-messages" style="flex: 1; overflow-y: auto; padding: 0 0.5rem; margin-bottom: 1rem;">
+                          ${chatMemory
+                            .map(
+                              (msg) => `
+                              <div class="message ${
+                                msg.type
+                              }" style="display: flex; margin-bottom: 1rem; ${
+                                msg.type === "ai"
+                                  ? "justify-content: flex-start"
+                                  : "justify-content: flex-end"
+                              };">
+                                  <div class="message-content" style="max-width: 70%; padding: 1rem 1.25rem; border-radius: 18px; position: relative; ${
+                                    msg.type === "ai"
+                                      ? "background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: white; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);"
+                                      : "background: var(--bg-tertiary); color: var(--text-primary);"
+                                  }">
+                                      <p style="margin: 0; line-height: 1.5;">${
+                                        msg.message
+                                      }</p>
+                                      <small style="opacity: 0.7; font-size: 0.75rem; margin-top: 0.25rem; display: block;">${
+                                        msg.timestamp
+                                      }</small>
+                                      ${
+                                        msg.type === "ai"
+                                          ? '<button class="pin-btn" onclick="pinMessage(this)" style="position: absolute; top: -8px; right: -8px; background: var(--bg-secondary); border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; opacity: 0; transition: opacity 0.3s;"><i class="fas fa-thumbtack" style="font-size: 0.75rem;"></i></button>'
+                                          : ""
+                                      }
+                                  </div>
+                              </div>
+                          `
+                            )
+                            .join("")}
+                      </div>
+
+                      <div class="chat-input-container" style="position: relative;">
+                          <div class="chat-input" style="display: flex; gap: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 20px; align-items: center;">
+                              <input type="text" placeholder="Ask Retro anything..." style="flex: 1; background: none; border: none; outline: none; color: var(--text-primary); font-size: 1rem;" onkeypress="if(event.key==='Enter') sendMessage()">
+                              <button onclick="sendMessage()" class="btn" style="border-radius: 50%; width: 48px; height: 48px; padding: 0;">
+                                  <i class="fas fa-paper-plane"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Sidebar -->
+                  <div class="chat-sidebar card" style="display: flex; flex-direction: column;">
+                      <h3 class="accent-font" style="margin-bottom: 1rem; color: var(--accent-primary);">Context</h3>
+
+                      <div class="context-section" style="margin-bottom: 2rem;">
+                          <h4 style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Pinned Conversations</h4>
+                          <div class="pinned-items" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                              <div class="pinned-item" style="padding: 0.75rem; background: var(--bg-tertiary); border-radius: 12px; font-size: 0.875rem;">
+                                  <strong>Quantum Physics</strong><br>
+                                  <span style="color: var(--text-secondary);">Entanglement explanation</span>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="context-section">
+                          <h4 style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Available Notes</h4>
+                          <div class="available-notes" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 300px; overflow-y: auto;">
+                              ${sampleNotes
+                                .map(
+                                  (note) => `
+                                  <div class="note-item" onclick="attachNote(${
+                                    note.id
+                                  })" style="padding: 0.75rem; background: var(--bg-tertiary); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; font-size: 0.875rem;">
+                                      <strong>${note.title}</strong><br>
+                                      <span style="color: var(--text-secondary);">${note.content.substring(
+                                        0,
+                                        50
+                                      )}...</span>
+                                  </div>
+                              `
+                                )
+                                .join("")}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          `;
+      }
+
+      // Load Notes Content
+      function loadNotesContent(container) {
+        container.innerHTML = `
+              <div class="notes-container" style="display: grid; grid-template-columns: 300px 1fr; gap: 2rem; height: calc(100vh - 120px);">
+                  <!-- Notes Sidebar -->
+                  <div class="notes-sidebar card" style="display: flex; flex-direction: column;">
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                          <h2 class="accent-font" style="color: var(--accent-primary);">Notes</h2>
+                          <button onclick="createNewNote()" class="btn" style="padding: 0.5rem; border-radius: 50%;">
+                              <i class="fas fa-plus"></i>
+                          </button>
+                      </div>
+
+                      <div class="notes-search" style="margin-bottom: 1rem;">
+                          <input type="text" placeholder="Search notes..." style="width: 100%; padding: 0.75rem; border: none; background: var(--bg-tertiary); border-radius: 12px; color: var(--text-primary);">
+                      </div>
+
+                      <div class="notes-list" style="flex: 1; overflow-y: auto;">
+                          ${sampleNotes
+                            .map(
+                              (note) => `
+                              <div class="note-item ${
+                                note.id === 1 ? "active" : ""
+                              }" onclick="selectNote(${
+                                note.id
+                              })" style="padding: 1rem; margin-bottom: 0.5rem; background: ${
+                                note.id === 1
+                                  ? "var(--accent-primary)"
+                                  : "var(--bg-tertiary)"
+                              }; color: ${
+                                note.id === 1 ? "white" : "var(--text-primary)"
+                              }; border-radius: 12px; cursor: pointer; transition: all 0.3s ease;">
+                                  <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem;">${
+                                    note.title
+                                  }</h4>
+                                  <p style="margin: 0; font-size: 0.8rem; opacity: 0.8;">${note.content.substring(
+                                    0,
+                                    60
+                                  )}...</p>
+                                  <small style="opacity: 0.6; font-size: 0.7rem;">${new Date(
+                                    note.timestamp
+                                  ).toLocaleDateString()}</small>
+                              </div>
+                          `
+                            )
+                            .join("")}
+                      </div>
+                  </div>
+
+                  <!-- Notes Editor -->
+                  <div class="notes-editor card" style="display: flex; flex-direction: column;">
+                      <div class="editor-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                          <input type="text" value="Quantum Physics Basics" style="background: none; border: none; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif;">
+                          <div style="display: flex; gap: 0.5rem;">
+                              <button onclick="enhanceWithRetro()" class="btn">
+                                  <i class="fas fa-magic"></i>
+                                  Enhance with Retro
+                              </button>
+                              <button class="btn btn-secondary">
+                                  <i class="fas fa-download"></i>
+                                  Export
+                              </button>
+                          </div>
+                      </div>
+
+                      <div id="notes-editor" style="flex: 1; background: var(--bg-primary); border-radius: 12px; min-height: 400px;">
+                          <!-- Quill editor will be initialized here -->
+                      </div>
+
+                      <div class="editor-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                          <div style="display: flex; gap: 1rem;">
+                              <button onclick="generateCards()" class="btn btn-secondary">
+                                  <i class="fas fa-layer-group"></i>
+                                  Generate Cards
+                              </button>
+                              <button onclick="createAudio()" class="btn btn-secondary">
+                                  <i class="fas fa-microphone"></i>
+                                  Create Audio
+                              </button>
+                          </div>
+                          <span style="font-size: 0.875rem; color: var(--text-muted);">Auto-saved 2 minutes ago</span>
+                      </div>
+                  </div>
+              </div>
+          `;
+
+        // Initialize Quill editor
+        setTimeout(() => {
+          if (document.getElementById("notes-editor")) {
+            const quill = new Quill("#notes-editor", {
+              theme: "snow",
+              modules: {
+                toolbar: [
+                  [{ header: [1, 2, 3, false] }],
+                  ["bold", "italic", "underline", "strike"],
+                  [{ color: [] }, { background: [] }],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  ["blockquote", "code-block"],
+                  ["link", "image"],
+                  ["clean"],
+                ],
+              },
+            });
+
+            quill.setContents([
+              { insert: "Wave-Particle Duality\n", attributes: { header: 1 } },
+              {
+                insert:
+                  "\nWave-particle duality is a fundamental principle in quantum mechanics that suggests that every particle or quantum entity may be described as either a particle or a wave.\n\n",
+              },
+              { insert: "Key Concepts:\n", attributes: { header: 2 } },
+              {
+                insert:
+                  "\n• Photons exhibit both wave and particle properties\n• The double-slit experiment demonstrates this duality\n• Complementarity principle by Niels Bohr\n\n",
+              },
+              {
+                insert: "Mathematical Foundation:\n",
+                attributes: { header: 2 },
+              },
+              {
+                insert:
+                  "\nThe de Broglie wavelength equation: λ = h/p\nWhere λ is wavelength, h is Planck's constant, and p is momentum.\n\n",
+              },
+              { insert: "Applications:\n", attributes: { header: 2 } },
+              {
+                insert:
+                  "\n• Electron microscopy\n• Quantum computing\n• Laser technology\n• Semiconductor physics",
+              },
+            ]);
+          }
+        }, 100);
+      }
+
+      // Load Den Content (Focus Zone)
+      function loadDenContent(container) {
+        container.innerHTML = `
+              <div class="den-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: calc(100vh - 120px); position: relative; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 24px; overflow: hidden;">
+                  <!-- Animated Background -->
+                  <div class="den-bg" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.3;">
+                      <div class="cloud" style="position: absolute; width: 100px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50px; animation: float 6s ease-in-out infinite; top: 20%; left: 10%;"></div>
+                      <div class="cloud" style="position: absolute; width: 80px; height: 50px; background: rgba(255,255,255,0.08); border-radius: 40px; animation: float 8s ease-in-out infinite reverse; top: 60%; right: 15%; animation-delay: -2s;"></div>
+                      <div class="cloud" style="position: absolute; width: 120px; height: 70px; background: rgba(255,255,255,0.06); border-radius: 60px; animation: float 10s ease-in-out infinite; bottom: 30%; left: 20%; animation-delay: -4s;"></div>
+                  </div>
+
+                  <!-- Main Content -->
+                  <div class="den-content" style="position: relative; z-index: 2; text-align: center; color: white;">
+                      <h1 class="brand-font" style="font-size: 3rem; margin-bottom: 2rem; text-shadow: 0 4px 20px rgba(0,0,0,0.3);">Den</h1>
+
+                      <!-- Pomodoro Timer -->
+                      <div class="timer-container" style="margin-bottom: 3rem;">
+                          <div class="timer-circle" style="width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; margin: 0 auto; position: relative; border: 3px solid rgba(255,255,255,0.2);">
+                              <div class="timer-display" style="text-align: center;">
+                                  <div id="timer-time" style="font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem;">25:00</div>
+                                  <div id="timer-session" style="font-size: 0.875rem; opacity: 0.8;">Focus Session</div>
+                              </div>
+                              <svg style="position: absolute; width: 200px; height: 200px; transform: rotate(-90deg);">
+                                  <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+                                  <circle id="progress-circle" cx="100" cy="100" r="95" fill="none" stroke="white" stroke-width="4" stroke-dasharray="596.9" stroke-dashoffset="596.9" style="transition: stroke-dashoffset 1s linear;"></circle>
+                              </svg>
+                          </div>
+
+                          <div class="timer-controls" style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+                              <button onclick="startTimer()" class="btn" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(20px); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                                  <i class="fas fa-play"></i>
+                                  Start
+                              </button>
+                              <button onclick="pauseTimer()" class="btn" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(20px); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                                  <i class="fas fa-pause"></i>
+                                  Pause
+                              </button>
+                              <button onclick="resetTimer()" class="btn" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(20px); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                                  <i class="fas fa-refresh"></i>
+                                  Reset
+                              </button>
+                          </div>
+                      </div>
+
+                      <!-- Music Player -->
+                      <div class="music-player card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); max-width: 400px; margin: 0 auto;">
+                          <div style="display: flex; align-items: center; gap: 1rem;">
+                              <div class="album-art" style="width: 60px; height: 60px; background: linear-gradient(45deg, #ff6b6b, #feca57); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                  <i class="fas fa-music" style="font-size: 1.5rem; color: white;"></i>
+                              </div>
+                              <div style="flex: 1; text-align: left;">
+                                  <div style="font-weight: 600; margin-bottom: 0.25rem;">Lofi Study Beats</div>
+                                  <div style="font-size: 0.875rem; opacity: 0.8;">Calm Collective</div>
+                              </div>
+                              <div style="display: flex; gap: 0.5rem;">
+                                  <button onclick="previousTrack()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;">
+                                      <i class="fas fa-step-backward"></i>
+                                  </button>
+                                  <button onclick="playPause()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">
+                                      <i class="fas fa-play"></i>
+                                  </button>
+                                  <button onclick="nextTrack()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;">
+                                      <i class="fas fa-step-forward"></i>
+                                  </button>
+                              </div>
+                          </div>
+
+                          <div style="margin-top: 1rem;">
+                              <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 0.25rem;">
+                                  <span>1:23</span>
+                                  <span>3:47</span>
+                              </div>
+                              <div style="width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden;">
+                                  <div style="width: 35%; height: 100%; background: white; border-radius: 2px;"></div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- Theme Selector -->
+                      <div style="margin-top: 2rem;">
+                          <div style="font-size: 0.875rem; margin-bottom: 1rem; opacity: 0.8;">Choose Your Ambiance</div>
+                          <div style="display: flex; gap: 1rem; justify-content: center;">
+                              <button onclick="changeTheme('ocean')" class="theme-btn" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); border: 2px solid white; cursor: pointer;"></button>
+                              <button onclick="changeTheme('forest')" class="theme-btn" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #11998e, #38ef7d); border: 2px solid rgba(255,255,255,0.5); cursor: pointer;"></button>
+                              <button onclick="changeTheme('sunset')" class="theme-btn" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ff6b6b, #feca57); border: 2px solid rgba(255,255,255,0.5); cursor: pointer;"></button>
+                              <button onclick="changeTheme('space')" class="theme-btn" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #2c3e50, #4a69bd); border: 2px solid rgba(255,255,255,0.5); cursor: pointer;"></button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <style>
+              @keyframes float {
+                  0%, 100% { transform: translateY(0px) translateX(0px); }
+                  50% { transform: translateY(-20px) translateX(10px); }
+              }
+              </style>
+          `;
+      }
+
+      // Initialize with chat content
+      document.addEventListener("DOMContentLoaded", function () {
+        loadSectionContent("chat");
+      });
+
+      // Utility Functions
+      function sendMessage() {
+        const input = document.querySelector(".chat-input input");
+        if (input.value.trim()) {
+          // Add user message to chat
+          const messagesContainer = document.querySelector(".chat-messages");
+          const newMessage = document.createElement("div");
+          newMessage.className = "message user";
+          newMessage.style.cssText =
+            "display: flex; margin-bottom: 1rem; justify-content: flex-end;";
+          newMessage.innerHTML = `
+                  <div class="message-content" style="max-width: 70%; padding: 1rem 1.25rem; border-radius: 18px; background: var(--bg-tertiary); color: var(--text-primary);">
+                      <p style="margin: 0; line-height: 1.5;">${input.value}</p>
+                      <small style="opacity: 0.7; font-size: 0.75rem; margin-top: 0.25rem; display: block;">${new Date().toLocaleTimeString(
+                        [],
+                        { hour: "2-digit", minute: "2-digit" }
+                      )}</small>
+                  </div>
+              `;
+          messagesContainer.appendChild(newMessage);
+
+          // Simulate AI response
+          setTimeout(() => {
+            const aiMessage = document.createElement("div");
+            aiMessage.className = "message ai";
+            aiMessage.style.cssText =
+              "display: flex; margin-bottom: 1rem; justify-content: flex-start;";
+            aiMessage.innerHTML = `
+                      <div class="message-content" style="max-width: 70%; padding: 1rem 1.25rem; border-radius: 18px; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: white; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);">
+                          <p style="margin: 0; line-height: 1.5;">I understand you're asking about "${
+                            input.value
+                          }". Let me help you with that! This is a comprehensive topic that involves several key concepts...</p>
+                          <small style="opacity: 0.7; font-size: 0.75rem; margin-top: 0.25rem; display: block;">${new Date().toLocaleTimeString(
+                            [],
+                            { hour: "2-digit", minute: "2-digit" }
+                          )}</small>
+                          <button class="pin-btn" onclick="pinMessage(this)" style="position: absolute; top: -8px; right: -8px; background: var(--bg-secondary); border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; opacity: 0; transition: opacity 0.3s;"><i class="fas fa-thumbtack" style="font-size: 0.75rem;"></i></button>
+                      </div>
+                  `;
+            messagesContainer.appendChild(aiMessage);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          }, 1500);
+
+          input.value = "";
+          messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+      }
+
+      function pinMessage(btn) {
+        btn.style.opacity = "1";
+        btn.style.color = "var(--accent-primary)";
+      }
+
+      function attachNote(noteId) {
+        // Simulate attaching note to context
+        alert(
+          `Note "${
+            sampleNotes.find((n) => n.id === noteId).title
+          }" attached to context!`
+        );
+      }
+
+      function selectNote(noteId) {
+        document.querySelectorAll(".note-item").forEach((item) => {
+          item.classList.remove("active");
+          item.style.background = "var(--bg-tertiary)";
+          item.style.color = "var(--text-primary)";
+        });
+
+        const selectedItem = event.target.closest(".note-item");
+        selectedItem.classList.add("active");
+        selectedItem.style.background = "var(--accent-primary)";
+        selectedItem.style.color = "white";
+      }
+
+      function createNewNote() {
+        alert("Creating new note...");
+      }
+
+      function enhanceWithRetro() {
+        alert("Enhancing note with Retro AI...");
+      }
+
+      function generateCards() {
+        alert("Generating flashcards from this note...");
+      }
+
+      function createAudio() {
+        alert("Creating audio narration from this note...");
+      }
+
+      // Timer functions
+      let timerInterval;
+      let timeLeft = 25 * 60; // 25 minutes in seconds
+      let isRunning = false;
+
+      function startTimer() {
+        if (!isRunning) {
+          isRunning = true;
+          timerInterval = setInterval(updateTimer, 1000);
+          document.querySelector('[onclick="startTimer()"] i').className =
+            "fas fa-pause";
+        }
+      }
+
+      function pauseTimer() {
+        isRunning = false;
+        clearInterval(timerInterval);
+        document.querySelector('[onclick="startTimer()"] i').className =
+          "fas fa-play";
+      }
+
+      function resetTimer() {
+        isRunning = false;
+        clearInterval(timerInterval);
+        timeLeft = 25 * 60;
+        updateTimer();
+        document.querySelector('[onclick="startTimer()"] i').className =
+          "fas fa-play";
+      }
+
+      function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        const timerDisplay = document.getElementById("timer-time");
+        if (timerDisplay) {
+          timerDisplay.textContent = `${minutes
+            .toString()
+            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+          // Update progress circle
+          const progressCircle = document.getElementById("progress-circle");
+          if (progressCircle) {
+            const totalTime = 25 * 60;
+            const progress = ((totalTime - timeLeft) / totalTime) * 596.9;
+            progressCircle.style.strokeDashoffset = 596.9 - progress;
+          }
+
+          if (timeLeft > 0) {
+            timeLeft--;
+          } else {
+            pauseTimer();
+            alert("Focus session complete! Time for a break.");
+          }
+        }
+      }
+
+      function playPause() {
+        const icon = document.querySelector('[onclick="playPause()"] i');
+        if (icon.classList.contains("fa-play")) {
+          icon.className = "fas fa-pause";
+        } else {
+          icon.className = "fas fa-play";
+        }
+      }
+
+      function previousTrack() {
+        // Simulate track change
+      }
+
+      function nextTrack() {
+        // Simulate track change
+      }
+
+      function changeTheme(theme) {
+        const container = document.querySelector(".den-container");
+        const themes = {
+          ocean: "linear-gradient(135deg, #667eea, #764ba2)",
+          forest: "linear-gradient(135deg, #11998e, #38ef7d)",
+          sunset: "linear-gradient(135deg, #ff6b6b, #feca57)",
+          space: "linear-gradient(135deg, #2c3e50, #4a69bd)",
+        };
+
+        if (container && themes[theme]) {
+          container.style.background = themes[theme];
+        }
+
+        // Update active theme button
+        document.querySelectorAll(".theme-btn").forEach((btn) => {
+          btn.style.border = "2px solid rgba(255,255,255,0.5)";
+        });
+        event.target.style.border = "2px solid white";
+      }
+
+      // Load Cards Content
+      function loadCardsContent(container) {
+        container.innerHTML = `
+              <div class="cards-controls" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1rem;">
+                  <div style="display: flex; gap: 1rem; align-items: center;">
+                      <div class="search-container" style="position: relative;">
+                          <input type="text" id="search-input" placeholder="Search cards..." style="padding: 0.75rem 1rem 0.75rem 2.5rem; border: 2px solid black; background: transparent; border-radius: 9999px; color: var(--text-primary); width: 250px; transition-duration: 200ms;">
+                          <i class="fas fa-search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                      </div>
+                      <select id="category-filter" style="padding: 0.625rem 1.5rem; border: 2px solid black; background: transparent; border-radius: 9999px; color: var(--text-primary); transition-duration: 200ms; cursor: pointer;">
+                          <option value="">All Categories</option>
+                      </select>
+                      <button onclick="createCard()" class="tooltip flex items-center justify-center px-6 py-2.5 text-center text-white duration-200 bg-black border-2 border-black rounded-full hover:bg-transparent hover:border-black hover:text-black focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black" style="display: flex; align-items: center; justify-content: center; padding: 0.625rem 1.5rem; background-color: black; color: white; border: 2px solid black; border-radius: 9999px; font-size: 0.875rem; transition-duration: 200ms;">
+                          <i class="fas fa-plus" style="margin-right: 0.5rem;"></i>
+                          Create Card
+                      </button>
+                      <button onclick="generateAICards()" class="tooltip flex items-center justify-center px-6 py-2.5 text-center text-white duration-200 bg-purple-600 border-2 border-purple-600 rounded-full hover:bg-transparent hover:border-purple-600 hover:text-purple-600 focus:outline-none text-sm" style="display: flex; align-items: center; justify-content: center; padding: 0.625rem 1.5rem; background-color: #9333ea; color: white; border: 2px solid #9333ea; border-radius: 9999px; font-size: 0.875rem; transition-duration: 200ms;">
+                          <i class="fas fa-magic" style="margin-right: 0.5rem;"></i>
+                          Generate cards with AI
+                      </button>
+                  </div>
+              </div>
+              <div class="cards-container" style="height: calc(100vh - 100px); display: flex; flex-direction: column; width: 100%; border-radius: 24px; padding: calc(1rem + 7px); box-shadow: 3px 8px 30px -10px rgba(0, 0, 0, 0.12), 5px 20px 50px -20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05); filter: drop-shadow(3px 6px 25px rgba(0, 0, 0, 0.08)); background: white;">
+
+                  <div class="cards-grid" style="flex: 1; overflow-y: auto; padding: 0; width: 100%;">
+                      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: calc(1.5rem + 15px); width: 100%;">
+                          ${sampleCards
+                            .map(
+                              (card) => `
+                              <div class="flashcard" style="height: 200px; position: relative; cursor: pointer;" onclick="flipCard(this)">
+                                  <div class="card-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
+                                      <div class="card-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--bg-secondary); border-radius: 24px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px solid var(--border-color); box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.1), inset -2px -2px 8px rgba(255, 255, 255, 0.5);">
+                                          ${card.category && card.category.toLowerCase() !== 'none' ? `<div class="category-badge" style="position: absolute; top: 1rem; right: 1rem; background: var(--accent-primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 500;">${card.category}</div>` : ''}
+                                          <i class="fas fa-question-circle" style="font-size: 2rem; color: black; margin-bottom: 1rem;"></i>
+                                          <h3 style="margin: 0; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; line-height: 1.4;">${card.question}</h3>
+                                      </div>
+                                      <div class="card-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: white; color: black; border-radius: 24px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; transform: rotateY(180deg); box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.1), inset -2px -2px 8px rgba(255, 255, 255, 0.8);">
+                                          <p style="margin: 0; font-size: 1rem; line-height: 1.5;">${card.answer}</p>
+                                          <div style="position: absolute; bottom: 1rem; right: 1rem; display: flex; gap: 0.5rem;">
+                                              <button onclick="event.stopPropagation(); editCard(${card.id})" class="btn" style="padding: 0.5rem; border-radius: 50%; background: black; color: white; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
+                                                  <i class="fas fa-edit"></i>
+                                              </button>
+                                              <button onclick="event.stopPropagation(); deleteCard(${card.id})" class="btn" style="padding: 0.5rem; border-radius: 50%; background: black; color: white; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
+                                                  <i class="fas fa-trash"></i>
+                                              </button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          `
+                            )
+                            .join("")}
+                      </div>
+                  </div>
+              </div>
+          `;
+        
+        // Initialize category filter functionality
+        initializeCategoryFilter();
+      }
+
+      // Initialize category filter functionality
+      function initializeCategoryFilter() {
+        const categorySelect = document.getElementById('category-filter');
+        const searchInput = document.getElementById('search-input');
+        
+        // Populate category dropdown with unique categories from cards
+        updateCategoryOptions();
+        
+        // Add event listener for category filtering
+        categorySelect.addEventListener('change', (e) => {
+          filterAndSearchCards();
+        });
+        
+        // Add event listener for search
+        searchInput.addEventListener('input', (e) => {
+          filterAndSearchCards();
+        });
+      }
+
+      // Update category options based on available cards
+      function updateCategoryOptions() {
+        const categorySelect = document.getElementById('category-filter');
+        const currentValue = categorySelect.value;
+        
+        // Get unique categories from cards (excluding "None")
+        const categories = [...new Set(sampleCards.map(card => card.category).filter(cat => cat && cat.toLowerCase() !== 'none'))].sort();
+        
+        // Clear existing options except "All Categories"
+        categorySelect.innerHTML = '<option value="">All Categories</option>';
+        
+        // Add category options
+        categories.forEach(category => {
+          const option = document.createElement('option');
+          option.value = category;
+          option.textContent = category;
+          categorySelect.appendChild(option);
+        });
+        
+        // Restore previous selection if it still exists
+        if (currentValue && categories.includes(currentValue)) {
+          categorySelect.value = currentValue;
+        }
+      }
+
+      // Combined filter and search function
+      function filterAndSearchCards() {
+        const categorySelect = document.getElementById('category-filter');
+        const searchInput = document.getElementById('search-input');
+        const selectedCategory = categorySelect.value;
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        
+        const cardsGrid = document.querySelector('.cards-grid > div');
+        if (!cardsGrid) return;
+        
+        let filteredCards = sampleCards;
+        
+        // Filter by category first
+        if (selectedCategory) {
+          filteredCards = filteredCards.filter(card => card.category === selectedCategory);
+        }
+        
+        // Then filter by search term
+        if (searchTerm) {
+          filteredCards = filteredCards.filter(card => 
+            card.question.toLowerCase().includes(searchTerm) || 
+            card.answer.toLowerCase().includes(searchTerm) ||
+            (card.category && card.category.toLowerCase().includes(searchTerm))
+          );
+        }
+        
+        // Update the cards display
+        displayFilteredCards(filteredCards);
+      }
+
+      // Display filtered cards
+      function displayFilteredCards(cards) {
+        const cardsGrid = document.querySelector('.cards-grid > div');
+        if (!cardsGrid) return;
+        
+        if (cards.length === 0) {
+          cardsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-muted);"><i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i><p>No cards found matching your criteria.</p></div>';
+          return;
+        }
+        
+        cardsGrid.innerHTML = cards.map(card => `
+          <div class="flashcard" style="height: 200px; position: relative; cursor: pointer;" onclick="flipCard(this)">
+              <div class="card-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
+                  <div class="card-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--bg-secondary); border-radius: 24px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-shadow: 0 10px 30px rgba(128, 128, 128, 0.3); border: 1px solid var(--border-color);">
+                      ${card.category && card.category.toLowerCase() !== 'none' ? `<div class="category-badge" style="position: absolute; top: 1rem; right: 1rem; background: var(--accent-primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 500;">${card.category}</div>` : ''}
+                      <i class="fas fa-question-circle" style="font-size: 2rem; color: black; margin-bottom: 1rem;"></i>
+                      <h3 style="margin: 0; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; line-height: 1.4;">${card.question}</h3>
+                  </div>
+                  <div class="card-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: white; color: black; border-radius: 24px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; transform: rotateY(180deg); box-shadow: 0 10px 30px rgba(128, 128, 128, 0.3);">
+                      <p style="margin: 0; font-size: 1rem; line-height: 1.5;">${card.answer}</p>
+                      <div style="position: absolute; bottom: 1rem; right: 1rem; display: flex; gap: 0.5rem;">
+                          <button onclick="event.stopPropagation(); editCard(${card.id})" class="btn" style="padding: 0.5rem; border-radius: 50%; background: black; color: white; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
+                              <i class="fas fa-edit"></i>
+                          </button>
+                          <button onclick="event.stopPropagation(); deleteCard(${card.id})" class="btn" style="padding: 0.5rem; border-radius: 50%; background: black; color: white; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
+                              <i class="fas fa-trash"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        `).join('');
+      }
+
+      // Refresh cards display and update category filter
+      function refreshCardsDisplay() {
+        const container = document.querySelector('#cards-content');
+        if (container) {
+          loadCardsContent(container);
+        }
+      }
+
+      // Load Narration Content
+      function loadNarrationContent(container) {
+        container.innerHTML = `
+              <div class="narration-container" style="height: calc(100vh - 120px); display: flex; flex-direction: column;">
+                  <h1 class="page-title" style="margin-bottom: 2rem;">Notes to Audio</h1>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; flex: 1;">
+                      <!-- Input Section -->
+                      <div class="card" style="display: flex; flex-direction: column;">
+                          <h2 class="accent-font" style="color: var(--accent-primary); margin-bottom: 1.5rem;">Select Notes</h2>
+
+                          <div class="note-selector" style="margin-bottom: 1.5rem;">
+                              <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                                  <button onclick="selectAllNotes()" class="btn btn-secondary">
+                                      <i class="fas fa-check-double"></i>
+                                      Select All
+                                  </button>
+                                  <button onclick="clearSelection()" class="btn btn-secondary">
+                                      <i class="fas fa-times"></i>
+                                      Clear
+                                  </button>
+                              </div>
+
+                              <div class="notes-checklist" style="max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem;">
+                                  ${sampleNotes
+                                    .map(
+                                      (note) => `
+                                      <label style="display: flex; align-items: center; padding: 0.75rem; margin-bottom: 0.5rem; background: var(--bg-tertiary); border-radius: 8px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='var(--accent-primary)'; this.style.color='white';" onmouseout="this.style.background='var(--bg-tertiary)'; this.style.color='var(--text-primary)';">
+                                          <input type="checkbox" ${
+                                            note.id === 1 ? "checked" : ""
+                                          } style="margin-right: 0.75rem;">
+                                          <div>
+                                              <div style="font-weight: 500; margin-bottom: 0.25rem;">${
+                                                note.title
+                                              }</div>
+                                              <div style="font-size: 0.8rem; opacity: 0.8;">${note.content.substring(
+                                                0,
+                                                80
+                                              )}...</div>
+                                          </div>
+                                      </label>
+                                  `
+                                    )
+                                    .join("")}
+                              </div>
+                          </div>
+
+                          <div class="voice-settings" style="margin-bottom: 1.5rem;">
+                              <h3 style="margin-bottom: 1rem; color: var(--text-secondary);">Voice Settings</h3>
+                              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                  <div>
+                                      <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">Voice</label>
+                                      <select style="width: 100%; padding: 0.75rem; border: none; background: var(--bg-tertiary); border-radius: 8px; color: var(--text-primary);">
+                                          <option>Sarah (Neural)</option>
+                                          <option>David (Neural)</option>
+                                          <option>Emma (Natural)</option>
+                                      </select>
+                                  </div>
+                                  <div>
+                                      <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">Speed</label>
+                                      <select style="width: 100%; padding: 0.75rem; border: none; background: var(--bg-tertiary); border-radius: 8px; color: var(--text-primary);">
+                                          <option>0.75x (Slow)</option>
+                                          <option selected>1.0x (Normal)</option>
+                                          <option>1.25x (Fast)</option>
+                                          <option>1.5x (Very Fast)</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <button onclick="generateAudio()" class="btn" style="margin-top: auto;">
+                              <i class="fas fa-magic"></i>
+                              Generate Audio
+                          </button>
+                      </div>
+
+                      <!-- Output Section -->
+                      <div class="card" style="display: flex; flex-direction: column;">
+                          <div style="flex: 1; display: flex; flex-direction: column;">
+                              <h2 class="accent-font" style="color: var(--accent-primary); margin-bottom: 1.5rem;">Generated Audio</h2>
+
+                              <div class="audio-preview" style="flex: 1; display: flex; flex-direction: column;">
+                                  <!-- Waveform Visualization -->
+                                  <div class="waveform-container" style="height: 120px; background: var(--bg-tertiary); border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                      <div class="waveform" style="display: flex; align-items: center; gap: 2px; height: 60px;">
+                                          ${Array.from(
+                                            { length: 50 },
+                                            (_, i) =>
+                                              `<div class="wave-bar" style="width: 3px; background: var(--accent-primary); border-radius: 2px; height: ${
+                                                Math.random() * 60 + 10
+                                              }px; opacity: ${
+                                                i < 20 ? "1" : "0.3"
+                                              }; transition: all 0.3s ease;"></div>`
+                                          ).join("")}
+                                      </div>
+                                      <div class="play-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--accent-primary); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);" onclick="playAudio()">
+                                          <i class="fas fa-play" style="margin-left: 3px;"></i>
+                                      </div>
+                                  </div>
+
+                                  <!-- Audio Controls -->
+                                  <div class="audio-controls" style="background: var(--bg-tertiary); border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;">
+                                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                          <span style="font-weight: 500;">Quantum Physics Basics</span>
+                                          <span style="font-size: 0.875rem; color: var(--text-muted);">3:24 / 8:47</span>
+                                      </div>
+
+                                      <div class="progress-bar" style="width: 100%; height: 6px; background: rgba(99, 102, 241, 0.2); border-radius: 3px; margin-bottom: 1rem; cursor: pointer;">
+                                          <div style="width: 40%; height: 100%; background: var(--accent-primary); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                      </div>
+
+                                      <div style="display: flex; justify-content: center; gap: 1rem;">
+                                          <button onclick="skipBackward()" style="background: none; border: none; color: var(--text-primary); font-size: 1.2rem; cursor: pointer; padding: 0.5rem;">
+                                              <i class="fas fa-backward"></i>
+                                          </button>
+                                          <button onclick="playPauseAudio()" style="background: var(--accent-primary); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">
+                                              <i class="fas fa-pause"></i>
+                                          </button>
+                                          <button onclick="skipForward()" style="background: none; border: none; color: var(--text-primary); font-size: 1.2rem; cursor: pointer; padding: 0.5rem;">
+                                              <i class="fas fa-forward"></i>
+                                          </button>
+                                      </div>
+                                  </div>
+
+                                  <!-- Download Options -->
+                                  <div style="margin-top: auto;">
+                                      <h3 style="margin-bottom: 1rem; color: var(--text-secondary);">Download Options</h3>
+                                      <div style="display: flex; gap: 0.5rem;">
+                                          <button onclick="downloadAudio('mp3')" class="btn btn-secondary">
+                                              <i class="fas fa-download"></i>
+                                              MP3
+                                          </button>
+                                          <button onclick="downloadAudio('wav')" class="btn btn-secondary">
+                                              <i class="fas fa-download"></i>
+                                              WAV
+                                          </button>
+                                          <button onclick="downloadAudio('m4a')" class="btn btn-secondary">
+                                              <i class="fas fa-download"></i>
+                                              M4A
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- Recent Generations -->
+                          <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                              <h3 style="margin-bottom: 1rem; color: var(--accent-primary);">Recent Generations</h3>
+                              <div style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem;">
+                                  ${[
+                                    "JavaScript Closures",
+                                    "Machine Learning Overview",
+                                    "Quantum Entanglement",
+                                  ]
+                                    .map(
+                                      (title) => `
+                                      <div class="recent-item" style="min-width: 200px; padding: 1rem; background: var(--bg-tertiary); border-radius: 12px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                                          <div style="font-weight: 500; margin-bottom: 0.5rem;">${title}</div>
+                                          <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">Generated 2 hours ago</div>
+                                          <div style="display: flex; gap: 0.5rem;">
+                                              <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+                                                  <i class="fas fa-play"></i>
+                                              </button>
+                                              <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+                                                  <i class="fas fa-download"></i>
+                                              </button>
+                                          </div>
+                                      </div>
+                                  `
+                                    )
+                                    .join("")}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Recent Generations -->
+                  
+              </div>
+          `;
+      }
+
+      // Card Functions
+      function flipCard(cardElement) {
+        const cardInner = cardElement.querySelector(".card-inner");
+        const currentTransform = cardInner.style.transform;
+
+        if (currentTransform.includes("rotateY(180deg)")) {
+          cardInner.style.transform = "rotateY(0deg)";
+        } else {
+          cardInner.style.transform = "rotateY(180deg)";
+        }
+      }
+
+      function createCard() {
+        // Create modal for adding a new card
+        const modal = document.createElement('div');
+        modal.className = 'card-modal';
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        `;
+        
+        // Create modal content
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+          width: 90%;
+          max-width: 500px;
+          background: var(--bg-secondary);
+          border-radius: 24px;
+          padding: 2rem;
+          box-shadow: 0 10px 30px var(--shadow-lg);
+          border: 1px solid var(--border-color);
+        `;
+        
+        modalContent.innerHTML = `
+          <h2 style="margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif; color: var(--text-primary);">Create New Flashcard</h2>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Question</label>
+            <textarea id="card-question" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100px; resize: vertical;"></textarea>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Answer</label>
+            <textarea id="card-answer" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100px; resize: vertical;"></textarea>
+          </div>
+          
+          <div style="margin-bottom: 2rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Category</label>
+            <select id="card-category" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-tertiary); color: var(--text-primary);">
+              <option value="None">None</option>
+              <option value="custom">Custom Category...</option>
+            </select>
+            <input type="text" id="custom-category" placeholder="Enter custom category name..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-tertiary); color: var(--text-primary); margin-top: 0.5rem; display: none;">
+          </div>
+          
+          <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+            <button id="cancel-card" style="display: flex; align-items: center; justify-content: center; padding: 0.625rem 1.5rem; background-color: transparent; color: black; border: 2px solid black; border-radius: 9999px; font-size: 0.875rem; transition-duration: 200ms; font-family: 'Space Grotesk', sans-serif; cursor: pointer;">Cancel</button>
+            <button id="save-card" style="display: flex; align-items: center; justify-content: center; padding: 0.625rem 1.5rem; background-color: black; color: white; border: 2px solid black; border-radius: 9999px; font-size: 0.875rem; transition-duration: 200ms; font-family: 'Space Grotesk', sans-serif; cursor: pointer;">Create Card</button>
+          </div>
+        `;
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        document.getElementById('cancel-card').addEventListener('click', () => {
+          document.body.removeChild(modal);
+        });
+        
+        // Handle category dropdown change
+        document.getElementById('card-category').addEventListener('change', (e) => {
+          const customInput = document.getElementById('custom-category');
+          if (e.target.value === 'custom') {
+            customInput.style.display = 'block';
+            customInput.focus();
+          } else {
+            customInput.style.display = 'none';
+            customInput.value = '';
+          }
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            document.body.removeChild(modal);
+          }
+        });
+        
+        document.getElementById('save-card').addEventListener('click', () => {
+          const question = document.getElementById('card-question').value.trim();
+          const answer = document.getElementById('card-answer').value.trim();
+          let category = document.getElementById('card-category').value;
+          
+          // If custom category is selected, use the custom input value
+          if (category === 'custom') {
+            const customCategory = document.getElementById('custom-category').value.trim();
+            category = customCategory || 'None';
+          }
+          
+          if (!question || !answer) {
+            alert('Please fill out both question and answer fields.');
+            return;
+          }
+          
+          // Create new card and add it to the array
+          const newCard = {
+            id: sampleCards.length > 0 ? Math.max(...sampleCards.map(card => card.id)) + 1 : 1,
+            question: question,
+            answer: answer,
+            category: category
+          };
+          
+          sampleCards.unshift(newCard); // Add to beginning of array
+          document.body.removeChild(modal);
+          
+          // Refresh the cards display
+          refreshCardsDisplay();
+        });
+      }
+
+      function generateAICards() {
+        // Create modal for AI card generation
+        const modal = document.createElement('div');
+        modal.className = 'ai-modal';
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        `;
+        
+        // Create modal content
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+          background: white;
+          border-radius: 24px;
+          padding: 2rem;
+          max-width: 500px;
+          width: 90%;
+          max-height: 80vh;
+          overflow-y: auto;
+        `;
+        
+        modalContent.innerHTML = `
+          <h2 style="margin: 0 0 1rem 0; color: #333; font-family: 'Space Grotesk', sans-serif;">Generate Cards with AI</h2>
+          <p style="margin: 0 0 1.5rem 0; color: #666;">Enter a topic or subject, and AI will generate flashcards for you!</p>
+          
+          <div style="margin-bottom: 1rem;">
+            <label for="ai-topic" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">Topic or Subject:</label>
+            <input type="text" id="ai-topic" placeholder="e.g., JavaScript functions, World War 2, Biology..." style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 12px; font-size: 1rem;">
+          </div>
+          
+          <div style="margin-bottom: 1rem;">
+            <label for="ai-count" style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">Number of cards:</label>
+            <select id="ai-count" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 12px; font-size: 1rem;">
+              <option value="5">5 cards</option>
+              <option value="10">10 cards</option>
+              <option value="15">15 cards</option>
+              <option value="20">20 cards</option>
+            </select>
+          </div>
+          
+          <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+            <button id="cancel-ai" style="padding: 0.75rem 1.5rem; background: transparent; color: #666; border: 2px solid #ddd; border-radius: 12px; cursor: pointer; font-size: 1rem;">Cancel</button>
+            <button id="generate-ai" class="tooltip flex items-center justify-center px-6 py-2.5 text-center text-white duration-200 bg-purple-600 border-2 border-purple-600 rounded-full hover:bg-transparent hover:border-purple-600 hover:text-purple-600 focus:outline-none text-sm" style="padding: 0.75rem 1.5rem; background-color: #9333ea; color: white; border: 2px solid #9333ea; border-radius: 12px; cursor: pointer; font-size: 1rem;">Generate Cards</button>
+          </div>
+        `;
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        // Handle cancel button
+        document.getElementById('cancel-ai').addEventListener('click', () => {
+          document.body.removeChild(modal);
+        });
+        
+        // Handle generate button
+        document.getElementById('generate-ai').addEventListener('click', () => {
+          const topic = document.getElementById('ai-topic').value.trim();
+          const count = parseInt(document.getElementById('ai-count').value);
+          
+          if (!topic) {
+            alert('Please enter a topic or subject.');
+            return;
+          }
+          
+          // Show loading state
+          document.getElementById('generate-ai').innerHTML = 'Generating...';
+          document.getElementById('generate-ai').disabled = true;
+          
+          // Simulate AI generation (replace with actual AI integration)
+          setTimeout(() => {
+            // Generate sample cards based on the topic
+            for (let i = 0; i < count; i++) {
+              const newCard = {
+                id: sampleCards.length > 0 ? Math.max(...sampleCards.map(card => card.id)) + 1 : 1,
+                question: `${topic} - Question ${i + 1}?`,
+                answer: `This is a generated answer about ${topic}. Replace with actual AI-generated content.`,
+                category: topic
+              };
+              sampleCards.unshift(newCard);
+            }
+            
+            document.body.removeChild(modal);
+            refreshCardsDisplay();
+            alert(`Successfully generated ${count} cards about "${topic}"!`);
+          }, 2000);
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            document.body.removeChild(modal);
+          }
+        });
+      }
+
+      function editCard(cardId) {
+        const card = sampleCards.find(card => card.id === cardId);
+        if (!card) {
+          alert('Card not found!');
+          return;
+        }
+        
+        // Create modal for editing the card
+        const modal = document.createElement('div');
+        modal.className = 'card-modal';
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        `;
+        
+        // Create modal content
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+          width: 90%;
+          max-width: 500px;
+          background: var(--bg-secondary);
+          border-radius: 24px;
+          padding: 2rem;
+          box-shadow: 0 10px 30px var(--shadow-lg);
+          border: 1px solid var(--border-color);
+        `;
+        
+        modalContent.innerHTML = `
+          <h2 style="margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif; color: var(--text-primary);">Edit Flashcard</h2>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Question</label>
+            <textarea id="edit-question" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100px; resize: vertical;">${card.question}</textarea>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Answer</label>
+            <textarea id="edit-answer" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100px; resize: vertical;">${card.answer}</textarea>
+          </div>
+          
+          <div style="margin-bottom: 2rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Category</label>
+            <select id="edit-category" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-tertiary); color: var(--text-primary);">
+              <option value="Physics" ${card.category === 'Physics' ? 'selected' : ''}>Physics</option>
+              <option value="Programming" ${card.category === 'Programming' ? 'selected' : ''}>Programming</option>
+              <option value="Biology" ${card.category === 'Biology' ? 'selected' : ''}>Biology</option>
+              <option value="Technology" ${card.category === 'Technology' ? 'selected' : ''}>Technology</option>
+              <option value="Other" ${card.category === 'Other' ? 'selected' : ''}>Other</option>
+            </select>
+          </div>
+          
+          <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+            <button id="cancel-edit" style="display: flex; align-items: center; justify-content: center; padding: 0.625rem 1.5rem; background-color: transparent; color: black; border: 2px solid black; border-radius: 9999px; font-size: 0.875rem; transition-duration: 200ms; font-family: 'Space Grotesk', sans-serif; cursor: pointer;">Cancel</button>
+            <button id="save-edit" style="display: flex; align-items: center; justify-content: center; padding: 0.625rem 1.5rem; background-color: black; color: white; border: 2px solid black; border-radius: 9999px; font-size: 0.875rem; transition-duration: 200ms; font-family: 'Space Grotesk', sans-serif; cursor: pointer;">Save Changes</button>
+          </div>
+        `;
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        document.getElementById('cancel-edit').addEventListener('click', () => {
+          document.body.removeChild(modal);
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            document.body.removeChild(modal);
+          }
+        });
+        
+        document.getElementById('save-edit').addEventListener('click', () => {
+          const question = document.getElementById('edit-question').value.trim();
+          const answer = document.getElementById('edit-answer').value.trim();
+          const category = document.getElementById('edit-category').value;
+          
+          if (!question || !answer) {
+            alert('Please fill out both question and answer fields.');
+            return;
+          }
+          
+          // Update the card
+          card.question = question;
+          card.answer = answer;
+          card.category = category;
+          
+          document.body.removeChild(modal);
+          
+          // Refresh the cards display
+          refreshCardsDisplay();
+        });
+      }
+
+      function deleteCard(cardId) {
+        const card = sampleCards.find(card => card.id === cardId);
+        if (!card) {
+          alert('Card not found!');
+          return;
+        }
+
+        // Create confirmation modal
+        const modal = document.createElement('div');
+        modal.className = 'delete-confirmation-modal';
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        `;
+        
+        // Create modal content
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+          background: white;
+          border-radius: 24px;
+          padding: 2rem;
+          max-width: 400px;
+          width: 90%;
+          text-align: center;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        `;
+        
+        modalContent.innerHTML = `
+          <div style="margin-bottom: 1.5rem;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
+            <h2 style="margin: 0 0 1rem 0; color: #333; font-family: 'Space Grotesk', sans-serif;">Delete Card?</h2>
+            <p style="margin: 0; color: #666; line-height: 1.5;">Are you sure you want to delete this card? This action cannot be undone.</p>
+            <div style="background: #f8f9fa; border-radius: 12px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <strong style="color: #333;">${card.question}</strong>
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: 1rem; justify-content: center;">
+            <button id="cancel-delete" style="padding: 0.75rem 1.5rem; background: #f3f4f6; color: #374151; border: 2px solid #d1d5db; border-radius: 12px; cursor: pointer; font-size: 1rem; transition: all 0.2s;">
+              Cancel
+            </button>
+            <button id="confirm-delete" style="padding: 0.75rem 1.5rem; background: #ef4444; color: white; border: 2px solid #ef4444; border-radius: 12px; cursor: pointer; font-size: 1rem; transition: all 0.2s;">
+              <i class="fas fa-trash" style="margin-right: 0.5rem;"></i>
+              Delete Card
+            </button>
+          </div>
+        `;
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        // Handle cancel button
+        document.getElementById('cancel-delete').addEventListener('click', () => {
+          document.body.removeChild(modal);
+        });
+        
+        // Handle confirm delete button
+        document.getElementById('confirm-delete').addEventListener('click', () => {
+          const cardIndex = sampleCards.findIndex(card => card.id === cardId);
+          if (cardIndex !== -1) {
+            sampleCards.splice(cardIndex, 1);
+            refreshCardsDisplay();
+          }
+          document.body.removeChild(modal);
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            document.body.removeChild(modal);
+          }
+        });
+
+        // Add hover effects for buttons
+        const cancelBtn = document.getElementById('cancel-delete');
+        const confirmBtn = document.getElementById('confirm-delete');
+        
+        cancelBtn.addEventListener('mouseenter', () => {
+          cancelBtn.style.background = '#e5e7eb';
+          cancelBtn.style.borderColor = '#9ca3af';
+        });
+        
+        cancelBtn.addEventListener('mouseleave', () => {
+          cancelBtn.style.background = '#f3f4f6';
+          cancelBtn.style.borderColor = '#d1d5db';
+        });
+        
+        confirmBtn.addEventListener('mouseenter', () => {
+          confirmBtn.style.background = '#dc2626';
+        });
+        
+        confirmBtn.addEventListener('mouseleave', () => {
+          confirmBtn.style.background = '#ef4444';
+        });
+      }
+
+      // Audio Functions
+      function generateAudio() {
+        const checkedNotes = document.querySelectorAll(
+          'input[type="checkbox"]:checked'
+        );
+        if (checkedNotes.length === 0) {
+          alert("Please select at least one note to generate audio.");
+          return;
+        }
+
+        // Simulate audio generation
+        alert(
+          `Generating audio for ${checkedNotes.length} selected note(s)...`
+        );
+      }
+
+      function playAudio() {
+        const overlay = document.querySelector(".play-overlay i");
+        const waveBars = document.querySelectorAll(".wave-bar");
+
+        if (overlay.classList.contains("fa-play")) {
+          overlay.className = "fas fa-pause";
+          // Animate wave bars
+          waveBars.forEach((bar, index) => {
+            setTimeout(() => {
+              bar.style.opacity = "1";
+            }, index * 50);
+          });
+        } else {
+          overlay.className = "fas fa-play";
+          waveBars.forEach((bar) => {
+            bar.style.opacity = "0.3";
+          });
+        }
+      }
+
+      function playPauseAudio() {
+        const btn = document.querySelector('[onclick="playPauseAudio()"] i');
+        if (btn.classList.contains("fa-pause")) {
+          btn.className = "fas fa-play";
+        } else {
+          btn.className = "fas fa-pause";
+        }
+      }
+
+      function skipBackward() {
+        // Simulate skip backward
+      }
+
+      function skipForward() {
+        // Simulate skip forward
+      }
+
+      function downloadAudio(format) {
+        alert(`Downloading audio as ${format.toUpperCase()}...`);
+      }
+
+      function selectAllNotes() {
+        document
+          .querySelectorAll('.notes-checklist input[type="checkbox"]')
+          .forEach((checkbox) => {
+            checkbox.checked = true;
+          });
+      }
+
+      function clearSelection() {
+        document
+          .querySelectorAll('.notes-checklist input[type="checkbox"]')
+          .forEach((checkbox) => {
+            checkbox.checked = false;
+          });
+      }
+      
+      // Initialize with cards content
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeTheme();
+        loadContentWithAnimation(document.getElementById("cards-content"), loadCardsContent);
+      });
+    </script>
+  </body>
+</html>
