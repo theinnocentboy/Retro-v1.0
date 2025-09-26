@@ -1,0 +1,19 @@
+{
+  "name": "retro-v1.0",
+  "version": "1.0.0",
+  "description": "AI Integrated study platform for notes, study management, flash cards and scheduler which helps user to focus on study for exams",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.2"
+  }
+}
