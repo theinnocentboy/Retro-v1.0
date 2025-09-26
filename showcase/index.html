@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro - AI Smart Study Companion</title>
+    <meta
+      name="description"
+      content="Discover Retro, the revolutionary AI-powered study companion that transforms the way you learn with intelligent chat, smart notes, flashcards, and audio narration."
+    />
+    <meta
+      name="keywords"
+      content="AI study companion, smart learning, study notes, flashcards, AI chat, education technology"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-300 font-sans"
+  >
+    <!-- Navigation -->
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700"
+    >
+      <div
+        class="container mx-auto px-6 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-2">
+          <i class="fas fa-robot text-2xl text-purple-600"></i>
+          <span class="text-2xl font-bold font-orbitron">Retro</span>
+        </div>
+        <ul class="hidden md:flex items-center space-x-2">
+          <li>
+            <a
+              href="#hero"
+              class="px-4 py-2 font-medium text-gray-600 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#features"
+              class="px-4 py-2 font-medium text-gray-600 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              >Features</a
+            >
+          </li>
+          <li>
+            <a
+              href="#modules"
+              class="px-4 py-2 font-medium text-gray-600 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              >Modules</a
+            >
+          </li>
+          <li>
+            <a
+              href="#tech"
+              class="px-4 py-2 font-medium text-gray-600 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              >Technology</a
+            >
+          </li>
+          <li>
+            <a
+              href="#pricing"
+              class="px-4 py-2 font-medium text-gray-600 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              >Pricing</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="px-4 py-2 font-medium text-gray-600 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <div class="flex items-center space-x-2">
+          <button
+            class="px-3 py-2 font-medium text-gray-600 transition-colors duration-200 rounded-lg sm:px-4 dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+            aria-label="Toggle dark mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="md:hidden flex flex-col space-y-1">
+            <span class="w-6 h-0.5 bg-gray-600 dark:bg-gray-300"></span>
+            <span class="w-6 h-0.5 bg-gray-600 dark:bg-gray-300"></span>
+            <span class="w-6 h-0.5 bg-gray-600 dark:bg-gray-300"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="hero"
+      class="min-h-screen flex items-center bg-gray-50 dark:bg-gray-900"
+    >
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="text-center md:text-left">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+              <span class="block text-purple-600 font-orbitron">Retro</span>
+              <span class="block text-xl md:text-2xl font-plex"
+                >AI Smart Study Companion</span
+              >
+            </h1>
+            <p class="text-lg mb-8 max-w-lg mx-auto md:mx-0">
+              Experience the future of learning with our revolutionary
+              AI-powered study companion. Transform your study sessions with
+              intelligent chat assistance, smart notes, dynamic flashcards, and
+              immersive audio narration.
+            </p>
+            <div class="flex justify-center md:justify-start space-x-4">
+              <button
+                class="px-6 py-3 font-medium text-white bg-purple-600 rounded-lg transition-colors duration-200 hover:bg-purple-700 flex items-center space-x-2"
+              >
+                <i class="fas fa-rocket"></i>
+                <span>Get Started</span>
+              </button>
+              <button
+                class="px-6 py-3 font-medium text-gray-600 bg-gray-100 rounded-lg transition-colors duration-200 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center space-x-2"
+              >
+                <i class="fas fa-play"></i>
+                <span>Watch Demo</span>
+              </button>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <div
+              class="w-full max-w-sm h-[500px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 shadow-2xl"
+            >
+              <div
+                class="w-full h-full bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden flex flex-col"
+              >
+                <div
+                  class="p-3 border-b border-gray-200 dark:border-gray-700 flex justify-center"
+                >
+                  <div class="flex space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-gray-300"></span>
+                    <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-gray-300"></span>
+                  </div>
+                </div>
+                <div class="p-4 flex-1 flex flex-col space-y-4">
+                  <div
+                    class="flex items-start space-x-3 p-3 rounded-lg bg-purple-100 dark:bg-purple-900/50 self-start max-w-xs"
+                  >
+                    <i class="fas fa-robot text-purple-600"></i>
+                    <span class="text-sm">How can I help you study today?</span>
+                  </div>
+                  <div
+                    class="flex items-start space-x-3 p-3 rounded-lg bg-blue-100 dark:bg-blue-900/50 self-end max-w-xs"
+                  >
+                    <span class="text-sm"
+                      >Explain quantum physics concepts</span
+                    >
+                    <i class="fas fa-user text-blue-600"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Overview Section -->
+    <section id="features" class="py-20 bg-white dark:bg-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold font-orbitron">
+            Revolutionary Features
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">
+            Discover the powerful tools that make Retro your ultimate study
+            companion
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 transition-transform duration-300 hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-full flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-comments text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">AI Chat Assistant</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+              Engage with an intelligent AI that provides personalized study
+              assistance.
+            </p>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                Real-time interactive chat
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                Contextual awareness
+              </li>
+            </ul>
+          </div>
+          <div
+            class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 transition-transform duration-300 hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-sticky-note text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Smart Notes Manager</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+              Create, edit, and enhance your study notes with our rich text
+              editor.
+            </p>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                WYSIWYG rich text editor
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                AI content enhancement
+              </li>
+            </ul>
+          </div>
+          <div
+            class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 transition-transform duration-300 hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-pink-100 dark:bg-pink-900/50 text-pink-600 dark:text-pink-400 rounded-full flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-clone text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Dynamic Flashcards</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+              Study effectively with intelligent flashcard decks that adapt to
+              you.
+            </p>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                Automated card generation
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                Progress tracking
+              </li>
+            </ul>
+          </div>
+          <div
+            class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 transition-transform duration-300 hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 rounded-full flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-volume-up text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Audio Narration</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+              Transform your written notes into engaging audio content for
+              learning.
+            </p>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                Text-to-speech conversion
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                High-quality narration
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section id="modules" class="py-20 bg-gray-50 dark:bg-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold font-orbitron">
+            Explore the Modules
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">
+            Five powerful AI-driven modules designed to revolutionize your study
+            experience
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- AI Chat Assistant -->
+          <div
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
+          >
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div
+                  class="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-comments text-xl"></i>
+                </div>
+                <span
+                  class="text-xs font-semibold bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300 px-2 py-1 rounded-full"
+                  >AI Powered</span
+                >
+              </div>
+              <h3 class="text-xl font-bold mb-2">AI Chat Assistant</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                Your intelligent study companion for real-time assistance.
+              </p>
+              <ul class="space-y-2 text-sm">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i> Context-aware
+                  responses
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i> Note
+                  integration
+                </li>
+              </ul>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-4">
+              <button
+                class="w-full px-4 py-2 font-medium text-purple-600 transition-colors duration-200 rounded-lg dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900"
+              >
+                Try Chat Assistant
+              </button>
+            </div>
+          </div>
+
+          <!-- Notes Manager -->
+          <div
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
+          >
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div
+                  class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-sticky-note text-xl"></i>
+                </div>
+                <span
+                  class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 px-2 py-1 rounded-full"
+                  >Smart Editor</span
+                >
+              </div>
+              <h3 class="text-xl font-bold mb-2">Notes Manager</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                Rich text editing with AI enhancements for your study materials.
+              </p>
+              <ul class="space-y-2 text-sm">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i> WYSIWYG
+                  editor
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i> Auto-save &
+                  export
+                </li>
+              </ul>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-4">
+              <button
+                class="w-full px-4 py-2 font-medium text-blue-600 transition-colors duration-200 rounded-lg dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900"
+              >
+                Start Taking Notes
+              </button>
+            </div>
+          </div>
+
+          <!-- Flashcard Decks -->
+          <div
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
+          >
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div
+                  class="w-12 h-12 bg-pink-100 dark:bg-pink-900/50 text-pink-600 dark:text-pink-400 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-clone text-xl"></i>
+                </div>
+                <span
+                  class="text-xs font-semibold bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300 px-2 py-1 rounded-full"
+                  >Auto-Generated</span
+                >
+              </div>
+              <h3 class="text-xl font-bold mb-2">Flashcard Decks</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                Intelligent flashcards with spaced repetition learning.
+              </p>
+              <ul class="space-y-2 text-sm">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i> Auto-generate
+                  from notes
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-2"></i> Progress
+                  analytics
+                </li>
+              </ul>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-4">
+              <button
+                class="w-full px-4 py-2 font-medium text-pink-600 transition-colors duration-200 rounded-lg dark:text-pink-400 hover:bg-pink-100 dark:hover:bg-pink-900"
+              >
+                Create Flashcards
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="tech" class="py-20 bg-white dark:bg-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold font-orbitron">
+            Built with Modern Technology
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">
+            Leveraging cutting-edge web technologies for optimal performance
+          </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div
+            class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700"
+          >
+            <h3 class="text-xl font-bold mb-4">Frontend</h3>
+            <div class="flex justify-center space-x-6 text-4xl">
+              <i class="fab fa-html5 text-orange-500" title="HTML5"></i>
+              <i class="fab fa-css3-alt text-blue-500" title="CSS3"></i>
+              <i
+                class="fab fa-js-square text-yellow-500"
+                title="JavaScript ES6+"
+              ></i>
+            </div>
+          </div>
+          <div
+            class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700"
+          >
+            <h3 class="text-xl font-bold mb-4">Core Libraries</h3>
+            <div class="flex justify-center space-x-6 text-4xl">
+              <i class="fas fa-scroll text-purple-500" title="fullPage.js"></i>
+              <i class="fas fa-edit text-green-500" title="Quill.js"></i>
+              <i class="fas fa-icons text-indigo-500" title="Font Awesome"></i>
+            </div>
+          </div>
+          <div
+            class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700"
+          >
+            <h3 class="text-xl font-bold mb-4">Design & UX</h3>
+            <div class="flex justify-center space-x-6 text-4xl">
+              <i
+                class="fas fa-mobile-alt text-red-500"
+                title="Responsive Design"
+              ></i>
+              <i class="fas fa-palette text-pink-500" title="Glassmorphism"></i>
+              <i
+                class="fas fa-adjust text-teal-500"
+                title="Dark/Light Theme"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gray-50 dark:bg-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold font-orbitron">
+            Choose Your Plan
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">
+            Flexible pricing for individuals and teams.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Pricing Card 1: Starter -->
+          <div
+            class="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col"
+          >
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold mb-2">Starter</h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-6">
+                Suitable to grow steadily.
+              </p>
+              <div class="text-4xl font-bold mb-6">
+                $25<span class="text-lg font-medium text-gray-500">/mo</span>
+              </div>
+            </div>
+            <button
+              class="w-full px-6 py-3 font-medium text-purple-600 transition-colors duration-200 rounded-lg dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900 border border-purple-600 dark:border-purple-400"
+            >
+              Get started
+            </button>
+          </div>
+
+          <!-- Pricing Card 2: Pro (Highlight) -->
+          <div
+            class="bg-purple-600 text-white p-8 rounded-lg shadow-2xl flex flex-col transform scale-105"
+          >
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold mb-2">Pro</h3>
+              <p class="text-purple-200 mb-6">
+                For professionals and power users.
+              </p>
+              <div class="text-4xl font-bold mb-6">
+                $50<span class="text-lg font-medium text-purple-200">/mo</span>
+              </div>
+            </div>
+            <button
+              class="w-full px-6 py-3 font-medium text-purple-600 bg-white rounded-lg transition-colors duration-200 hover:bg-gray-100"
+            >
+              Get started
+            </button>
+          </div>
+
+          <!-- Pricing Card 3: Enterprise -->
+          <div
+            class="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col"
+          >
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-6">
+                For large teams and organizations.
+              </p>
+              <div class="text-4xl font-bold mb-6">Custom</div>
+            </div>
+            <button
+              class="w-full px-6 py-3 font-medium text-purple-600 transition-colors duration-200 rounded-lg dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900 border border-purple-600 dark:border-purple-400"
+            >
+              Contact Sales
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      id="contact"
+      class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
+    >
+      <div class="container mx-auto px-6 py-12">
+        <div class="grid md:grid-cols-3 gap-8">
+          <div>
+            <div class="flex items-center space-x-2 mb-4">
+              <i class="fas fa-robot text-2xl text-purple-600"></i>
+              <span class="text-2xl font-bold font-orbitron">Retro</span>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400">
+              AI Smart Study Companion. Transforming the way you learn.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-8 col-span-2">
+            <div>
+              <h4 class="font-bold mb-4">Product</h4>
+              <ul class="space-y-2">
+                <li>
+                  <a href="#features" class="hover:text-purple-600">Features</a>
+                </li>
+                <li>
+                  <a href="#modules" class="hover:text-purple-600">Modules</a>
+                </li>
+                <li>
+                  <a href="#pricing" class="hover:text-purple-600">Pricing</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold mb-4">Support</h4>
+              <ul class="space-y-2">
+                <li>
+                  <a href="#" class="hover:text-purple-600">Help Center</a>
+                </li>
+                <li>
+                  <a href="#" class="hover:text-purple-600">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold mb-4">Connect</h4>
+              <div class="flex space-x-4">
+                <a href="#" aria-label="Twitter" class="hover:text-purple-600"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#" aria-label="GitHub" class="hover:text-purple-600"
+                  ><i class="fab fa-github"></i
+                ></a>
+                <a href="#" aria-label="Discord" class="hover:text-purple-600"
+                  ><i class="fab fa-discord"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-12 border-t border-gray-200 dark:border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500"
+        >
+          <p>&copy; 2025 Retro AI. All rights reserved.</p>
+          <div class="flex space-x-4 mt-4 md:mt-0">
+            <a href="#" class="hover:text-purple-600">Privacy Policy</a>
+            <a href="#" class="hover:text-purple-600">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+      // Basic dark mode toggle
+      const themeToggle = document.querySelector(
+        '[aria-label="Toggle dark mode"]'
+      );
+      themeToggle.addEventListener("click", () => {
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        }
+      });
+
+      // Set initial theme
+      if (
+        localStorage.getItem("theme") === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      // Mobile menu toggle
+      const hamburger = document.querySelector(".md\\:hidden");
+      const menu = document.querySelector(".hidden.md\\:flex");
+      hamburger.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+        menu.classList.toggle("flex");
+      });
+    </script>
+  </body>
+</html>
